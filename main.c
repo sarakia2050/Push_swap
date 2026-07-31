@@ -32,6 +32,8 @@ int	process_user_input(t_input *store, int ac, char **av)
 		}
 		else
 		{
+			if (av[i][0] == '\0')
+				return (0);
 			store->arr[store->num_cnt++] = ft_atoi(av[i]);
 			if (ft_strncmp(av[i], ft_itoa(store->arr[store->num_cnt - 1]),
 					ft_strlen(av[i])))
@@ -84,6 +86,8 @@ void	run_push_swap(t_input *store, t_dll *stk_a, t_dll *stk_b)
 		else
 			sorting_radix_sort(store, stk_a, stk_b, SHOW_OP);
 	}
+	if (store->bench_mode)
+		print_bench(store);
 	lst_clear(stk_a);
 	lst_clear(stk_b);
 }
@@ -98,7 +102,7 @@ int	main(int ac, char **av)
 	if (!process_user_input(&user_input, ac, av)
 		|| has_duplicates(user_input.arr, user_input.num_cnt))
 	{
-		ft_putstr("Error\n");
+		write(2, "Error\n", 6);
 		return (1);
 	}
 	user_input.disordedness = compute_disorder(user_input.arr,

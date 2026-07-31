@@ -25,6 +25,13 @@ typedef struct s_manual_arg
 	int				disp;
 }					t_marg;
 
+typedef struct s_bucket
+{
+	int				lo;
+	int				hi;
+	int				disp;
+}					t_bucket;
+
 typedef struct s_user_input
 {
 	int				selected_mode;
@@ -79,4 +86,5 @@ void				sorting_chunk_sort(t_input *store, t_dll *stk_a,
 						t_dll *stk_b, int disp_op);
 void				sorting_radix_sort(t_input *store, t_dll *stk_a,
 						t_dll *stk_b, int disp_op);
+void				print_bench(t_input *store);
 #endif

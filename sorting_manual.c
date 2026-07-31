@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_manual.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwaku <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: fkia <fkia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 16:55:37 by kwaku             #+#    #+#             */
-/*   Updated: 2026/07/05 16:56:11 by kwaku            ###   ########.fr       */
+/*   Updated: 2026/07/31 19:59:54 by fkia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,20 @@ void	sorting_manual_sort(t_input *store, t_dll *stk_a, t_dll *stk_b,
 {
 	int	mn;
 	int	pos;
+	int	moved;
 
 	if (stk_a->len == 2)
+	{
 		sorting_manual_sort_2(store, stk_a, stk_b, disp_op);
-	else if (stk_a->len == 3)
+		return ;
+	}
+	if (stk_a->len == 3)
+	{
 		sorting_manual_sort_3(store, stk_a, stk_b, disp_op);
+		return ;
+	}
 	mn = 0;
+	moved = 0;
 	while (stk_a->len > 3)
 	{
 		pos = find_target(stk_a, mn++);
@@ -104,8 +112,9 @@ void	sorting_manual_sort(t_input *store, t_dll *stk_a, t_dll *stk_b,
 			perform_rotations(stk_a, stk_a->len - pos, SHOW_OP, "rra\n");
 		px(stk_a, stk_b);
 		rec_op(store, "pb\n", SHOW_OP);
+		moved++;
 	}
 	sorting_manual_sort_3(store, stk_a, stk_b, SHOW_OP);
-	rec_op(store, "pa\n", SHOW_OP);
-	rec_op(store, "pa\n", SHOW_OP);
+	while (moved-- > 0)
+		rec_op(store, "pa\n", SHOW_OP);
 }

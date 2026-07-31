@@ -46,14 +46,14 @@ int	rec_op(t_input *store, const char *op, int disp)
 		store->ops[2]++;
 	else if (ft_strncmp(op, "rb", 2) == 0)
 		store->ops[3]++;
-	else if (ft_strncmp(op, "rr", 2) == 0)
-		store->ops[4]++;
 	else if (ft_strncmp(op, "rra", 3) == 0)
 		store->ops[5]++;
 	else if (ft_strncmp(op, "rrb", 3) == 0)
 		store->ops[6]++;
 	else if (ft_strncmp(op, "rrr", 3) == 0)
 		store->ops[7]++;
+	else if (ft_strncmp(op, "rr", 2) == 0)
+		store->ops[4]++;
 	else if (ft_strncmp(op, "sa", 2) == 0)
 		store->ops[8]++;
 	else if (ft_strncmp(op, "sb", 2) == 0)
@@ -73,6 +73,7 @@ void	sorting_radix_sort(t_input *store, t_dll *stk_a, t_dll *stk_b,
 	int	j;
 	int	cmb;
 
+	store->algo_used = 3;
 	i = -1;
 	msb = get_msb_pos(stk_a->len - 1);
 	while (++i <= msb)
