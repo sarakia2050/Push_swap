@@ -6,7 +6,7 @@
 /*   By: fkia <fkia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 16:55:37 by kwaku             #+#    #+#             */
-/*   Updated: 2026/07/31 19:59:54 by fkia             ###   ########.fr       */
+/*   Updated: 2026/07/31 20:40:48 by fkia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,6 @@ static void	sorting_manual_sort_2(t_input *store, t_dll *stk_a, t_dll *stk_b,
 	{
 		rec_op(store, "sa\n", disp);
 		sx(stk_a);
-	}
-}
-
-static void	helper(t_input *store, t_marg *args)
-{
-	if (args->a > args->b && args->c > args->a)
-	{
-		rec_op(store, "sa\n", args->disp);
-	}
-	else if (args->a < args->b && args->c < args->a)
-	{
-		rec_op(store, "rra\n", args->disp);
-	}
-	else if (args->c > args->b && args->c < args->a)
-	{
-		rec_op(store, "ra\n", args->disp);
-	}
-	else if (args->c < args->b && args->b < args->a)
-	{
-		rec_op(store, "ra\n", args->disp);
-		rec_op(store, "sa\n", args->disp);
 	}
 }
 
@@ -63,8 +42,17 @@ static void	sorting_manual_sort_3(t_input *store, t_dll *stk_a, t_dll *stk_b,
 		rec_op(store, "rra\n", disp);
 		rec_op(store, "sa\n", disp);
 	}
-	else
-		helper(store, &args);
+	else if (args.a > args.b && args.c > args.a)
+		rec_op(store, "sa\n", disp);
+	else if (args.a < args.b && args.c < args.a)
+		rec_op(store, "rra\n", disp);
+	else if (args.c > args.b && args.c < args.a)
+		rec_op(store, "ra\n", disp);
+	else if (args.c < args.b && args.b < args.a)
+	{
+		rec_op(store, "ra\n", disp);
+		rec_op(store, "sa\n", disp);
+	}
 }
 
 int	find_target(t_dll *stk, int target)
@@ -84,23 +72,12 @@ int	find_target(t_dll *stk, int target)
 	return (-1);
 }
 
-void	sorting_manual_sort(t_input *store, t_dll *stk_a, t_dll *stk_b,
-		int disp_op)
+static int	push_excess_to_b(t_input *store, t_dll *stk_a, t_dll *stk_b)
 {
 	int	mn;
 	int	pos;
 	int	moved;
 
-	if (stk_a->len == 2)
-	{
-		sorting_manual_sort_2(store, stk_a, stk_b, disp_op);
-		return ;
-	}
-	if (stk_a->len == 3)
-	{
-		sorting_manual_sort_3(store, stk_a, stk_b, disp_op);
-		return ;
-	}
 	mn = 0;
 	moved = 0;
 	while (stk_a->len > 3)
@@ -114,6 +91,25 @@ void	sorting_manual_sort(t_input *store, t_dll *stk_a, t_dll *stk_b,
 		rec_op(store, "pb\n", SHOW_OP);
 		moved++;
 	}
+	return (moved);
+}
+
+void	sorting_manual_sort(t_input *store, t_dll *stk_a, t_dll *stk_b,
+		int disp_op)
+{
+	int	moved;
+
+	if (stk_a->len == 2)
+	{
+		sorting_manual_sort_2(store, stk_a, stk_b, disp_op);
+		return ;
+	}
+	if (stk_a->len == 3)
+	{
+		sorting_manual_sort_3(store, stk_a, stk_b, disp_op);
+		return ;
+	}
+	moved = push_excess_to_b(store, stk_a, stk_b);
 	sorting_manual_sort_3(store, stk_a, stk_b, SHOW_OP);
 	while (moved-- > 0)
 		rec_op(store, "pa\n", SHOW_OP);

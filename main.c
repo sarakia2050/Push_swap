@@ -12,6 +12,17 @@
 
 #include "push_swap.h"
 
+static int	parse_number_arg(t_input *store, char *arg)
+{
+	if (arg[0] == '\0')
+		return (0);
+	store->arr[store->num_cnt++] = ft_atoi(arg);
+	if (ft_strncmp(arg, ft_itoa(store->arr[store->num_cnt - 1]),
+			ft_strlen(arg)))
+		return (0);
+	return (1);
+}
+
 int	process_user_input(t_input *store, int ac, char **av)
 {
 	int	i;
@@ -30,15 +41,8 @@ int	process_user_input(t_input *store, int ac, char **av)
 			else if (ft_strncmp("bench", av[i] + 2, 5) == 0)
 				store->bench_mode = 1;
 		}
-		else
-		{
-			if (av[i][0] == '\0')
-				return (0);
-			store->arr[store->num_cnt++] = ft_atoi(av[i]);
-			if (ft_strncmp(av[i], ft_itoa(store->arr[store->num_cnt - 1]),
-					ft_strlen(av[i])))
-				return (0);
-		}
+		else if (!parse_number_arg(store, av[i]))
+			return (0);
 	}
 	return (1);
 }
