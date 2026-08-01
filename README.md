@@ -6,7 +6,31 @@
 
 `push_swap` sorts a stack of integers using two stacks (`a` and `b`) and a
 restricted set of stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`,
-`rr`, `rra`, `rrb`, `rrr`), aiming to use as few operations as possible. The
+`rr`, `rra`, `rrb`, `rrr`), aiming to use as few operations as possible. Thechmod +x checker_linux
+make fclean
+make
+./push_swap 2 1 3 6 5 8
+./push_swap 3 2 1
+./push_swap 5 1 4 2 3
+./push_swap --simple 5 2 9 1 8 3 7 6 4 0
+./push_swap --medium 5 2 9 1 8 3 7 6 4 0
+./push_swap --complex 5 2 9 1 8 3 7 6 4 0
+./push_swap --bench --medium 5 2 9 1 8 3 7 6 4 0 2>&1 1>/dev/null
+./push_swap 3 2 1 5 4 8 7 6 9 0 | ./checker_linux 3 2 1 5 4 8 7 6 9 0
+./push_swap one two three
+./push_swap 1 2 2 3
+./push_swap ""
+./push_swap --bench $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench $(seq 0 99 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench $(seq 0 499 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+
+./push_swap --bench --simple $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --simple $(seq 0 99 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --simple $(seq 0 499 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+
+./push_swap --bench --simple $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --medium $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --complex $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
 program measures how disordered the input is and picks one of four sorting
 strategies accordingly (or a strategy can be forced with a flag). An optional
 `--bench` mode reports the disorder, the strategy used, and a breakdown of
@@ -158,3 +182,33 @@ function actually ran.
   counter (`rec_op`)
 - **fkia**: Simple and Medium sorting strategies, `--bench` mode, this
   README
+
+
+
+
+
+  chmod +x checker_linux
+make fclean
+make
+./push_swap 2 1 3 6 5 8
+./push_swap 3 2 1
+./push_swap 5 1 4 2 3
+./push_swap --simple 5 2 9 1 8 3 7 6 4 0
+./push_swap --medium 5 2 9 1 8 3 7 6 4 0
+./push_swap --complex 5 2 9 1 8 3 7 6 4 0
+./push_swap --bench --medium 5 2 9 1 8 3 7 6 4 0 2>&1 1>/dev/null
+./push_swap 3 2 1 5 4 8 7 6 9 0 | ./checker_linux 3 2 1 5 4 8 7 6 9 0
+./push_swap one two three
+./push_swap 1 2 2 3
+./push_swap ""
+./push_swap --bench $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench $(seq 0 99 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench $(seq 0 499 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+
+./push_swap --bench --simple $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --simple $(seq 0 99 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --simple $(seq 0 499 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+
+./push_swap --bench --simple $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --medium $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
+./push_swap --bench --complex $(seq 0 49 | shuf | tr '\n' ' ') 2>&1 1>/dev/null
